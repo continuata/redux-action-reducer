@@ -31,7 +31,7 @@ export const whenError = (reducer = payloadPassThrough) => (state, payload, erro
 export const whenSuccess = (reducer = payloadPassThrough) => (state, payload, error) =>
     error ? state : reducer(state, payload);
 
-export const extendReducer = (reducer, ...actionHandlers) => (defaultValue = null) => {
+export const extendReducer = (reducer) => (...actionHandlers) => (defaultValue = null) => {
   const extraReducer = createReducer(...actionHandlers)(defaultValue);
   return (state, action) =>
     extraReducer(reducer(state, action), action);

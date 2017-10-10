@@ -70,7 +70,7 @@ describe('whenSuccess', () => {
 describe('extendReducer', () => {
   it('should reduce a single action with custom action reducers', () => {
       const reducer = createReducer('SEARCH')('');
-      const extendedReducer = extendReducer(reducer, [ 'RESET', () => '' ])('')
+      const extendedReducer = extendReducer(reducer)([ 'RESET', () => '' ])('')
       let state = extendedReducer('', { type: 'SEARCH', payload: 'abc' });
       expect(state).to.equal('abc');
       state = extendedReducer(state, { type: 'RESET' });
@@ -79,7 +79,7 @@ describe('extendReducer', () => {
 
   it('should extend a single action with another single action', () => {
       const reducer = createReducer('SEARCH')('');
-      const extendedReducer = extendReducer(reducer, 'SEARCH_AGAIN')('')
+      const extendedReducer = extendReducer(reducer)('SEARCH_AGAIN')('')
       let state = extendedReducer('', { type: 'SEARCH', payload: 'abc' });
       expect(state).to.equal('abc');
       state = extendedReducer(state, { type: 'SEARCH_AGAIN', payload: 'def' });
@@ -88,7 +88,7 @@ describe('extendReducer', () => {
 
   it('should reduce multiple actions with custom action reducers', () => {
       const reducer = createReducer([ 'SEARCH', 'SEARCH_AGAIN' ])('');
-      const extendedReducer = extendReducer(reducer, [ 'RESET', 'EMPTY', () => ''])('')
+      const extendedReducer = extendReducer(reducer)([ 'RESET', 'EMPTY', () => ''])('')
 
       let state = extendedReducer('', { type: 'SEARCH', payload: 'abc' });
       expect(state).to.equal('abc');
