@@ -32,7 +32,11 @@ const createReducer = (...actionHandlers) => (defaultValue = null) => {
 
     return (state, { type, payload, error }) => {
         if (actions[type]) {
-            return actions[type](state, payload, error);
+            const newState = actions[type](state, payload, error);
+            if (typeof newState === 'undefined') {
+                console.error('[redux-action-reducer] action ' + type + ' returns undefined. Leaving state unchanged');
+            }
+            return typeof newState === 'undefined' ? state : newState;
         }
 
         return typeof state === 'undefined' ? defaultValue : state;
